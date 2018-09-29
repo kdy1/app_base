@@ -18,10 +18,29 @@ typedef Widget FirestoreListItemBuilder<D extends DocData>(BuildContext context,
 class FirestoreListView<D extends DocData> extends QueryView<D> {
   final FirestoreListItemBuilder<D> builder;
 
+  final Axis scrollDirection;
+  final bool reverse;
+  final bool primary;
+  final ScrollPhysics physics;
+  final bool shrinkWrap;
+  final EdgeInsetsGeometry padding;
+  final bool addAutomaticKeepAlives;
+  final bool addRepaintBoundaries;
+  final double cacheExtent;
+
   FirestoreListView({
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    this.scrollDirection = Axis.vertical,
+    this.reverse = false,
+    this.primary,
+    this.physics,
+    this.shrinkWrap = false,
+    this.padding,
+    this.addAutomaticKeepAlives = true,
+    this.addRepaintBoundaries = true,
+    this.cacheExtent,
   }) : super(key: key, query: query);
 
   @override
@@ -34,6 +53,15 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
 
     final docs = snapshot.data.docs;
     return ListView.builder(
+      scrollDirection: scrollDirection,
+      padding: padding,
+      physics: physics,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      addRepaintBoundaries: addRepaintBoundaries,
+      cacheExtent: cacheExtent,
+      primary: primary,
+      reverse: reverse,
+      shrinkWrap: shrinkWrap,
       itemCount: docs.length,
       itemBuilder: (BuildContext context, int index) {
         return builder(context, docs[index], index);
