@@ -82,17 +82,20 @@ abstract class DocView<D extends DocData> extends StreamWidget<DocSnapshot<D>> {
 
 class DocBuilder<D extends DocData> extends DocView<D> {
   final FirestoreDocBuilder<D> builder;
+  final Widget loading;
 
   DocBuilder({
     Key key,
     @required DocRef<D> doc,
+    this.loading,
     @required this.builder,
   }) : super(key: key, doc: doc);
 
   @override
   Widget build(BuildContext context, AsyncSnapshot<DocSnapshot<D>> snapshot) {
-    if (!snapshot.hasData) {
-      return Center(
+    if (snapshot.connectionState == ConnectionState.none) {
+      if (loading != null) return loading;
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }
