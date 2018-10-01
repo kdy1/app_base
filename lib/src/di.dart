@@ -13,7 +13,7 @@ T inject<T>(
 
   final w = context.inheritFromWidgetOfExactType(widgetType) as _Provider<T>;
 
-  if (w != null || nullOk) return w.value;
+  if (w != null || nullOk) return w?.value;
 
   var msg = 'Failed to inject ${_typeToStr(T)}: ${_typeToStr(widgetType)} not found';
 
