@@ -1,4 +1,8 @@
 
+## [0.2.0] - 2018-10-04
+
+This library now exports an instance of `FirebaseAnalytics` as a global variable.
+
 ## [0.1.1] - 2018-10-01
 
 `DocBuilder` now allows customizing loading widget and null data.

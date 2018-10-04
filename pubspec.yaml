@@ -1,6 +1,6 @@
 name: app_base
 description: My own commons library for flutter.
-version: 0.1.1
+version: 0.2.0
 author: DongYoon Kang <kdy1@outlook.kr>
 homepage: https://github.com/kdy1/app_base
 
@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   typed_firestore: ^0.0.2
+  firebase_analytics: ^1.0.3
   flutter:
     sdk: flutter
 
