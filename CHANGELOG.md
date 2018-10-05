@@ -1,3 +1,7 @@
+## [0.2.1] - 2018-10-05
+
+Added `PaddedCard` and `ChangeBasedTextFormField`.
+
 
 ## [0.2.0] - 2018-10-04
 
