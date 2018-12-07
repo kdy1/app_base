@@ -2,8 +2,8 @@ import 'package:app_base/app_base.dart';
 import 'package:flutter/material.dart';
 import 'package:typed_firestore/typed_firestore.dart';
 
-abstract class QueryView<D extends DocData> extends StreamWidget<TypedQuerySnapshot<D>> {
-  QueryView({
+abstract class StreamingQueryView<D extends DocData> extends StreamWidget<TypedQuerySnapshot<D>> {
+  StreamingQueryView({
     Key key,
     @required TypedQuery<D> query,
   })  : assert(query != null),
@@ -13,9 +13,7 @@ abstract class QueryView<D extends DocData> extends StreamWidget<TypedQuerySnaps
         );
 }
 
-typedef Widget FirestoreListItemBuilder<D extends DocData>(BuildContext context, DocSnapshot<D> doc, int index);
-
-class FirestoreListView<D extends DocData> extends QueryView<D> {
+class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D> {
   final FirestoreListItemBuilder<D> builder;
 
   final Axis scrollDirection;
@@ -28,7 +26,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
   final bool addRepaintBoundaries;
   final double cacheExtent;
 
-  FirestoreListView({
+  FirestoreStreamingListView({
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
@@ -72,19 +70,19 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
 
 typedef Widget FirestoreDocBuilder<D extends DocData>(BuildContext context, DocSnapshot<D> doc);
 
-abstract class DocView<D extends DocData> extends StreamWidget<DocSnapshot<D>> {
-  DocView({
+abstract class StreamingDocView<D extends DocData> extends StreamWidget<DocSnapshot<D>> {
+  StreamingDocView({
     Key key,
     @required DocRef<D> doc,
   })  : assert(doc != null),
         super(key: key, stream: doc.snapshots());
 }
 
-class DocBuilder<D extends DocData> extends DocView<D> {
+class StreamingDocBuilder<D extends DocData> extends StreamingDocView<D> {
   final FirestoreDocBuilder<D> builder;
   final Widget loading;
 
-  DocBuilder({
+  StreamingDocBuilder({
     Key key,
     @required DocRef<D> doc,
     this.loading,

@@ -1,3 +1,8 @@
+## [0.3.0] - 2018-12-07
+
+Changed name of streaming widget to `Streaming${widgetName}` and
+added future based widgets.
+
 ## [0.2.1] - 2018-10-05
 
 Added `PaddedCard` and `ChangeBasedTextFormField`.
