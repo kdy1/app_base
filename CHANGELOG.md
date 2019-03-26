@@ -1,3 +1,6 @@
+## [0.4.0] - 2019-03-26
+Migrated to AndroidX.
+
 ## [0.3.0] - 2018-12-07
 
 Changed name of streaming widget to `Streaming${widgetName}` and
