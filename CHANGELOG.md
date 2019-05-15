@@ -1,3 +1,6 @@
+## [0.5.1] - 2019-05-15
+Updated `firebase_analytics`.
+
 ## [0.5.0] - 2019-05-15
 Updated `typed_firestore`.
 
