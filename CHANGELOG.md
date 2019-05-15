@@ -1,3 +1,7 @@
+## [0.5.0] - 2019-05-15
+Updated `typed_firestore`.
+
+
 ## [0.4.0] - 2019-03-26
 Migrated to AndroidX.
 
