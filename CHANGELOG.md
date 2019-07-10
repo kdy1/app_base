@@ -1,3 +1,6 @@
+## [0.6.0] - 2019-07-10
+ - Bumped versions of `typed_firestore` and `cloud_firestore`
+
 ## [0.5.1] - 2019-05-15
 Updated `firebase_analytics`.
 
