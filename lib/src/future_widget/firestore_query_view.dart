@@ -18,6 +18,7 @@ typedef Widget ErrorRenderer(Object error);
 
 class FirestoreListView<D extends DocData> extends QueryView<D> {
   final FirestoreListItemBuilder<D> builder;
+  final WidgetBuilder empty;
   final ErrorRenderer errorHandler;
 
   final Axis scrollDirection;
@@ -34,6 +35,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    this.empty,
     this.errorHandler,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
@@ -51,7 +53,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
     return new FutureBuilder<TypedQuerySnapshot<D>>(
         future: query.getDocs(),
         builder: (BuildContext context, AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
-          if (snapshot.hasError) {
+          if (snapshot.hasError && errorHandler != null) {
             return errorHandler(snapshot.error);
           }
 
@@ -62,6 +64,9 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
           }
 
           final docs = snapshot.data.docs;
+          if (docs.isEmpty && empty != null) {
+            return Builder(builder: empty);
+          }
           return ListView.builder(
             scrollDirection: scrollDirection,
             padding: padding,

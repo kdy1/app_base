@@ -15,6 +15,8 @@ abstract class StreamingQueryView<D extends DocData> extends StreamWidget<TypedQ
 
 class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D> {
   final FirestoreListItemBuilder<D> builder;
+  final WidgetBuilder empty;
+  final ErrorRenderer errorHandler;
 
   final Axis scrollDirection;
   final bool reverse;
@@ -30,6 +32,8 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    this.empty,
+    this.errorHandler,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
     this.primary,
@@ -43,6 +47,10 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
 
   @override
   Widget build(BuildContext context, AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
+    if (snapshot.hasError && errorHandler != null) {
+      return errorHandler(snapshot.error);
+    }
+
     if (!snapshot.hasData) {
       return Center(
         child: CircularProgressIndicator(),
@@ -50,6 +58,9 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
     }
 
     final docs = snapshot.data.docs;
+    if (docs.isEmpty && empty != null) {
+      return Builder(builder: empty);
+    }
     return ListView.builder(
       scrollDirection: scrollDirection,
       padding: padding,

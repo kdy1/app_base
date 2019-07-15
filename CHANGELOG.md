@@ -1,3 +1,6 @@
+## [0.6.2] - 2019-07-15
+ - `FirestoreListView` and `FirestoreStreamingListView` now provides a way to handle error and empty list.
+
 ## [0.6.1] - 2019-07-15
  - FirestoreListView now provides a way to handle error.
 
