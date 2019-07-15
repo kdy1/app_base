@@ -1,3 +1,6 @@
+## [0.6.1] - 2019-07-15
+ - FirestoreListView now provides a way to handle error.
+
 ## [0.6.0] - 2019-07-10
  - Bumped versions of `typed_firestore` and `cloud_firestore`
 
