@@ -1,3 +1,6 @@
+## [0.6.3] - 2019-07-22
+ - `FirestoreListView` and `FirestoreStreamingListView` now accepts scroll controller. 
+
 ## [0.6.2] - 2019-07-15
  - `FirestoreListView` and `FirestoreStreamingListView` now provides a way to handle error and empty list.
 

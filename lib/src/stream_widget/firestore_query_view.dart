@@ -18,6 +18,7 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
   final WidgetBuilder empty;
   final ErrorRenderer errorHandler;
 
+  final ScrollController controller;
   final Axis scrollDirection;
   final bool reverse;
   final bool primary;
@@ -32,6 +33,7 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    this.controller,
     this.empty,
     this.errorHandler,
     this.scrollDirection = Axis.vertical,
@@ -62,6 +64,7 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
       return Builder(builder: empty);
     }
     return ListView.builder(
+      controller: controller,
       scrollDirection: scrollDirection,
       padding: padding,
       physics: physics,

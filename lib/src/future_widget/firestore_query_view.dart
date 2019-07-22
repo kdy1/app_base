@@ -21,6 +21,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
   final WidgetBuilder empty;
   final ErrorRenderer errorHandler;
 
+  final ScrollController controller;
   final Axis scrollDirection;
   final bool reverse;
   final bool primary;
@@ -35,6 +36,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    this.controller,
     this.empty,
     this.errorHandler,
     this.scrollDirection = Axis.vertical,
@@ -68,6 +70,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
             return Builder(builder: empty);
           }
           return ListView.builder(
+            controller: controller,
             scrollDirection: scrollDirection,
             padding: padding,
             physics: physics,
