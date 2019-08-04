@@ -1,13 +1,18 @@
 import 'package:app_base/app_base.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:typed_firestore/typed_firestore.dart';
 
 abstract class QueryView<D extends DocData> extends StatelessWidget {
   final TypedQuery<D> query;
+  final Source source;
+
   QueryView({
     Key key,
     @required this.query,
+    @required this.source,
   })  : assert(query != null),
+        assert(source != null),
         super(
           key: key,
         );
@@ -35,6 +40,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
   FirestoreListView({
     Key key,
     @required TypedQuery<D> query,
+    Source source = Source.serverAndCache,
     @required this.builder,
     this.controller,
     this.empty,
@@ -48,12 +54,16 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.cacheExtent,
-  }) : super(key: key, query: query);
+  }) : super(
+          key: key,
+          query: query,
+          source: source,
+        );
 
   @override
   Widget build(BuildContext context) {
     return new FutureBuilder<TypedQuerySnapshot<D>>(
-        future: query.getDocs(),
+        future: query.getDocs(source: source),
         builder: (BuildContext context, AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
           if (snapshot.hasError && errorHandler != null) {
             return errorHandler(snapshot.error);

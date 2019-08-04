@@ -6,10 +6,13 @@ abstract class StreamingQueryView<D extends DocData> extends StreamWidget<TypedQ
   StreamingQueryView({
     Key key,
     @required TypedQuery<D> query,
+    @required bool includeMetadataChanges,
   })  : assert(query != null),
         super(
           key: key,
-          stream: query.snapshots(),
+          stream: query.snapshots(
+            includeMetadataChanges: includeMetadataChanges,
+          ),
         );
 }
 
@@ -33,6 +36,7 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
     Key key,
     @required TypedQuery<D> query,
     @required this.builder,
+    bool includeMetadataChanges = false,
     this.controller,
     this.empty,
     this.errorHandler,
@@ -45,7 +49,11 @@ class FirestoreStreamingListView<D extends DocData> extends StreamingQueryView<D
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.cacheExtent,
-  }) : super(key: key, query: query);
+  }) : super(
+          key: key,
+          query: query,
+          includeMetadataChanges: includeMetadataChanges,
+        );
 
   @override
   Widget build(BuildContext context, AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
@@ -88,8 +96,14 @@ abstract class StreamingDocView<D extends DocData> extends StreamWidget<DocSnaps
   StreamingDocView({
     Key key,
     @required DocRef<D> doc,
+    @required bool includeMetadataChanges,
   })  : assert(doc != null),
-        super(key: key, stream: doc.snapshots());
+        super(
+          key: key,
+          stream: doc.snapshots(
+            includeMetadataChanges: includeMetadataChanges,
+          ),
+        );
 }
 
 class StreamingDocBuilder<D extends DocData> extends StreamingDocView<D> {
@@ -99,9 +113,14 @@ class StreamingDocBuilder<D extends DocData> extends StreamingDocView<D> {
   StreamingDocBuilder({
     Key key,
     @required DocRef<D> doc,
+    bool includeMetadataChanges = false,
     this.loading,
     @required this.builder,
-  }) : super(key: key, doc: doc);
+  }) : super(
+          key: key,
+          doc: doc,
+          includeMetadataChanges: includeMetadataChanges,
+        );
 
   @override
   Widget build(BuildContext context, AsyncSnapshot<DocSnapshot<D>> snapshot) {
