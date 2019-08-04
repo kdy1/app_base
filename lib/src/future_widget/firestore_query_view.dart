@@ -109,11 +109,13 @@ abstract class DocView<D extends DocData> extends StatelessWidget {
 }
 
 class DocBuilder<D extends DocData> extends DocView<D> {
+  final Source source;
   final FirestoreDocBuilder<D> builder;
   final Widget loading;
 
   DocBuilder({
     Key key,
+    this.source = Source.serverAndCache,
     @required DocRef<D> doc,
     this.loading,
     @required this.builder,
@@ -122,7 +124,7 @@ class DocBuilder<D extends DocData> extends DocView<D> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: doc.get(),
+      future: doc.get(source: source),
       builder: (BuildContext context, AsyncSnapshot<DocSnapshot<D>> snapshot) {
         if (snapshot.connectionState == ConnectionState.none) {
           if (loading != null) return loading;

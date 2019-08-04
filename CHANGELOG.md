@@ -1,3 +1,9 @@
+## [0.7.0+1] - 2019-08-04
+ - Caching
+ 
+## [0.7.0] - 2019-08-04
+ - Caching
+
 ## [0.6.3] - 2019-07-22
  - `FirestoreListView` and `FirestoreStreamingListView` now accepts scroll controller. 
 
