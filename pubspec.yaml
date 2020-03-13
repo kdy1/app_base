@@ -1,15 +1,14 @@
 name: app_base
 description: My own commons library for flutter.
-version: 0.8.0
+version: 0.9.0
 homepage: https://github.com/kdy1/app_base
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
-  typed_firestore: ^0.4.1
-  cloud_firestore: ^0.13.0+1
-  firebase_analytics: ^5.0.10
+  typed_firestore: ^0.4.2
+  cloud_firestore: ^0.13.4+1
   flutter:
     sdk: flutter
 
