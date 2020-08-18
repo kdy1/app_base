@@ -8,6 +8,7 @@ build/
 ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
+ios/Flutter/flutter_export_environment.sh
 
 GeneratedPluginRegistrant.java
 Generated.xcconfig
@@ -17,6 +18,7 @@ GeneratedPluginRegistrant.m
 local.properties
 
 .flutter-plugins
+.flutter-plugins-dependencies
 
 *.log
 *.g.dart

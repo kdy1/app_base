@@ -5,20 +5,21 @@ import 'package:typed_firestore/typed_firestore.dart';
 
 abstract class QueryView<D extends DocData> extends StatelessWidget {
   final TypedQuery<D> query;
-  final Source source;
+  final GetOptions options;
 
   QueryView({
     Key key,
     @required this.query,
-    @required this.source,
+    @required this.options,
   })  : assert(query != null),
-        assert(source != null),
+        assert(options != null),
         super(
           key: key,
         );
 }
 
-typedef Widget FirestoreListItemBuilder<D extends DocData>(BuildContext context, DocSnapshot<D> doc, int index);
+typedef Widget FirestoreListItemBuilder<D extends DocData>(
+    BuildContext context, DocSnapshot<D> doc, int index);
 typedef Widget ErrorRenderer(Object error);
 
 class FirestoreListView<D extends DocData> extends QueryView<D> {
@@ -40,7 +41,7 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
   FirestoreListView({
     Key key,
     @required TypedQuery<D> query,
-    Source source = Source.serverAndCache,
+    GetOptions options,
     @required this.builder,
     this.controller,
     this.empty,
@@ -57,14 +58,15 @@ class FirestoreListView<D extends DocData> extends QueryView<D> {
   }) : super(
           key: key,
           query: query,
-          source: source,
+          options: options,
         );
 
   @override
   Widget build(BuildContext context) {
     return new FutureBuilder<TypedQuerySnapshot<D>>(
-        future: query.getDocs(source: source),
-        builder: (BuildContext context, AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
+        future: query.get(options),
+        builder: (BuildContext context,
+            AsyncSnapshot<TypedQuerySnapshot<D>> snapshot) {
           if (snapshot.hasError && errorHandler != null) {
             return errorHandler(snapshot.error);
           }
@@ -109,13 +111,13 @@ abstract class DocView<D extends DocData> extends StatelessWidget {
 }
 
 class DocBuilder<D extends DocData> extends DocView<D> {
-  final Source source;
+  final GetOptions options;
   final FirestoreDocBuilder<D> builder;
   final Widget loading;
 
   DocBuilder({
     Key key,
-    this.source = Source.serverAndCache,
+    this.options,
     @required DocRef<D> doc,
     this.loading,
     @required this.builder,
@@ -124,7 +126,7 @@ class DocBuilder<D extends DocData> extends DocView<D> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: doc.get(source: source),
+      future: doc.get(options),
       builder: (BuildContext context, AsyncSnapshot<DocSnapshot<D>> snapshot) {
         if (snapshot.connectionState == ConnectionState.none) {
           if (loading != null) return loading;

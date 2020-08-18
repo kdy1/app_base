@@ -1,3 +1,6 @@
+## [0.10.0] - 2020-08-18
+ - Update dependencies
+ 
 ## [0.9.0] - 2020-03-13
  - Drop dependency on firebase analytics (to support web)
  - Update dependencies
